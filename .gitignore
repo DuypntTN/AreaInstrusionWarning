@@ -1,0 +1,6 @@
+*.png
+.env
+*.txt
+*.cfg
+*.weights
+*.pyc
