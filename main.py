@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 from imutils.video import VideoStream
 from yolodetect import YoloDetect
-import asyncio
 
 
 def run():
