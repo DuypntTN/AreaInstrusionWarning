@@ -33,7 +33,12 @@ def run():
     while True:
         frame = video.read()
         frame = cv2.flip(frame, 1)
+        # Specify the desired width and height
+        desired_width = 640
+        desired_height = 480
 
+        # Resize the frame
+        frame = cv2.resize(frame, (desired_width, desired_height))
         # Ve ploygon
         frame = draw_polygon(frame, points)
 

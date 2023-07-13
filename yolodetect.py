@@ -57,18 +57,18 @@ class YoloDetect():
 
         return isInside(points, centroid)
 
+    ## Hàm này để bắn thông báo đến telegram
     def alert(self, img):
         cv2.putText(img, "ALARM!!!!", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
         # New thread to send telegram after 15 seconds
         if (self.last_alert is None) or (
                 (datetime.datetime.utcnow() - self.last_alert).total_seconds() > self.alert_telegram_each):
             self.last_alert = datetime.datetime.utcnow()
-            cv2.imwrite("alert.png", cv2.resize(img, dsize=None, fx=0.2, fy=0.2))
+            cv2.imwrite("alert.png", cv2.resize(img, dsize=None, fx=0.5, fy=0.5))
             thread = threading.Thread(target=asyncio.run(send_telegram(
                 image_dir='alert.png'
             )))
             thread.start()
-            
         return img
 
     def detect(self, frame, points):
@@ -106,6 +106,4 @@ class YoloDetect():
             w = box[2]
             h = box[3]
             self.draw_prediction(frame, class_ids[i], round(x), round(y), round(x + w), round(y + h), points)
-        
-        print("Detected")
         return frame
